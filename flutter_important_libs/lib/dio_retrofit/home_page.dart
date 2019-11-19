@@ -1,8 +1,10 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architectures/chopper_architecture/models/built_post.dart';
 import 'package:provider/provider.dart';
-import 'detail_page.dart';
+
 import 'api/api.dart';
+import 'detail_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -23,7 +25,8 @@ class HomePage extends StatelessWidget {
           );
 
           // The JSONPlaceholder API always responds with whatever was passed in the POST request
-          final response = await Provider.of<RestClient>(context, listen: false).postPost(newPost);
+          final response = await Provider.of<RestClient>(context, listen: false)
+              .postPost(newPost);
           // We cannot really add any new posts using the placeholder API,
           // so just print the response to the console
           print(response.body);
@@ -50,8 +53,8 @@ class HomePage extends StatelessWidget {
               ),
             );
           }
-          final posts = snapshot.data;
-          return _buildPosts(context, posts);
+          final List<BuiltPost> posts = snapshot.data;
+          return _buildPosts(context, BuiltList(posts));
         } else {
           // Show a loading indicator while waiting for the posts
           return const Center(
@@ -62,7 +65,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  ListView _buildPosts(BuildContext context, List<BuiltPost> posts) {
+  ListView _buildPosts(BuildContext context, BuiltList<BuiltPost> posts) {
     return ListView.builder(
       itemCount: posts.length,
       padding: const EdgeInsets.all(8),
@@ -86,7 +89,7 @@ class HomePage extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => DetailPage(postId: id),
-          ),
+      ),
     );
   }
 }

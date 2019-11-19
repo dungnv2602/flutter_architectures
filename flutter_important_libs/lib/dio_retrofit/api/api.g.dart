@@ -7,20 +7,21 @@ part of 'api.dart';
 // **************************************************************************
 
 class _RestClient implements RestClient {
-  _RestClient(this._dio) {
+  _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
+    this.baseUrl ??= '/posts';
   }
 
   final Dio _dio;
 
-  final String baseUrl = 'https://jsonplaceholder.typicode.com';
+  String baseUrl;
 
   @override
   getPosts() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request('/posts',
+    final Response<List<dynamic>> _result = await _dio.request('',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -35,16 +36,16 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getPost(id) async {
-    ArgumentError.checkNotNull(id, 'id');
+  postPost(body) async {
+    ArgumentError.checkNotNull(body, 'body');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/posts/$id',
+    _data.addAll(body.toJson() ?? <String, dynamic>{});
+    final Response<Map<String, dynamic>> _result = await _dio.request('',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'GET',
+            method: 'POST',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
@@ -54,15 +55,15 @@ class _RestClient implements RestClient {
   }
 
   @override
-  postPost(body) async {
-    ArgumentError.checkNotNull(body, 'body');
+  getPost(id) async {
+    ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = body;
-    final Response<Map<String, dynamic>> _result = await _dio.request('/posts',
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request('/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'POST',
+            method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),

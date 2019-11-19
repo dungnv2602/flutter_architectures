@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_responsive_ui_arch/models/drawer_item_model.dart';
-import 'package:flutter_responsive_ui_arch/responsive/orientation_layout.dart';
-import 'package:flutter_responsive_ui_arch/responsive/screen_type_layout.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+
 import 'drawer_item_mobile.dart';
 import 'drawer_item_tablet.dart';
 
@@ -23,11 +23,11 @@ class DrawerItem extends StatelessWidget {
     return Provider.value(
       value: DrawerItemModel(title: title, iconData: iconData),
       child: ScreenTypeLayout(
-        mobile: OrientationLayout(
+        mobile: OrientationLayoutBuilder(
           portrait: (context) => DrawerItemMobilePortrait(),
           landscape: (context) => DrawerItemMobileLandscape(),
         ),
-        tablet: OrientationLayout(
+        tablet: OrientationLayoutBuilder(
           portrait: (context) => DrawerItemTabletPortrait(),
           // use mobile portrait for tablet landscape
           landscape: (context) => DrawerItemMobilePortrait(),

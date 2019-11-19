@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_architectures/chopper_architecture/models/models.dart';
 import 'package:retrofit/retrofit.dart';
+
 part 'api.g.dart';
 
 //@RestApi(baseUrl: 'https://jsonplaceholder.typicode.com')
@@ -17,6 +18,5 @@ abstract class RestClient {
   );
 
   @GET('/{id}')
-  
   Future<BuiltPost> getPost(@Path('id') int id);
 }

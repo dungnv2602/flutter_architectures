@@ -21,7 +21,7 @@ class _$PostApiService extends PostApiService {
   }
 
   Future<Response<BuiltPost>> getPost(int id) {
-    final $url = '/posts/${id}';
+    final $url = '/posts/$id';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<BuiltPost, BuiltPost>($request);
   }

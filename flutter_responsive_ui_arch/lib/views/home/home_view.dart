@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_responsive_ui_arch/responsive/orientation_layout.dart';
-import 'package:flutter_responsive_ui_arch/responsive/screen_type_layout.dart';
 import 'package:flutter_responsive_ui_arch/viewmodels/home_viewmodel.dart';
 import 'package:flutter_responsive_ui_arch/widgets/base_widget.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'home_view_mobile.dart';
 import 'home_view_tablet.dart';
 
@@ -15,7 +14,7 @@ class HomeView extends StatelessWidget {
       viewModel: HomeViewModel(),
       onModelReady: (model) => model.initialise(),
       child: ScreenTypeLayout(
-        mobile: OrientationLayout(
+        mobile: OrientationLayoutBuilder(
           portrait: (context) => HomeViewMobilePortrait(),
           landscape: (context) => HomeViewMobileLandscape(),
         ),

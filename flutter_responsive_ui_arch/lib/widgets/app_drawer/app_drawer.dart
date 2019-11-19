@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_responsive_ui_arch/responsive/screen_type_layout.dart';
 import 'package:flutter_responsive_ui_arch/widgets/drawer_item/drawer_item.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import 'app_drawer_mobile.dart';
 import 'app_drawer_tablet.dart';

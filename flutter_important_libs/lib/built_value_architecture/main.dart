@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Client;
@@ -29,7 +30,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Post> _posts = [];
+  BuiltList<Post> _posts = BuiltList<Post>([]);
   final client = Client();
 
   @override
