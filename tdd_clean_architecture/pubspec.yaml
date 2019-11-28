@@ -1,0 +1,49 @@
+name: tdd_clean_architecture
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.5.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  font_awesome_flutter: ^8.4.0
+  cupertino_icons: ^0.1.2
+
+  flutter_bloc: ^2.0.0
+  equatable: ^0.6.0
+  rxdart: ^0.22.6
+  get_it: ^3.0.3
+
+  dartz: ^0.8.8
+
+  built_value: ^6.8.2
+  built_collection: ^4.2.2
+
+  shared_preferences: ^0.5.4+5
+
+  hive: ^1.1.1
+  hive_flutter: ^0.2.1
+
+  http: ^0.12.0
+  connectivity: ^0.4.5+3
+  data_connection_checker: ^0.3.4
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  mockito: ^4.0.0
+  bloc_test: ^2.1.0
+
+  build_runner: ^1.7.0
+  built_value_generator: ^6.8.2
+  hive_generator: ^0.5.2
+
+
+flutter:
+  uses-material-design: true

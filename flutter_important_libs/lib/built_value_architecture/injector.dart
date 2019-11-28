@@ -17,6 +17,8 @@ class Injector {
         return MockRedditRepos();
       case RepoType.PROD:
         return ProdRedditRepos();
+      default:
+        return null;
     }
   }
 }

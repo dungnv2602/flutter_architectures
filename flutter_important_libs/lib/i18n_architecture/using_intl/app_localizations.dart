@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_architectures/i18n_architecture/minimal/locales.dart';
 import 'package:intl/intl.dart';
 
@@ -13,15 +12,18 @@ class AppLocalizations {
   }
 
   // Static member to have a simple access to the delegate from the MaterialApp
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationDelegate();
 
   static Future<AppLocalizations> load(Locale locale) {
-    final String name = locale.countryCode.isEmpty ? locale.languageCode : locale.toString();
+    final String name =
+        locale.countryCode.isEmpty ? locale.languageCode : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
 
-//    return initializeMessages(localeName).then((_) {
-//      return AppLocalizations(localeName);
-//    });
+    return null;
+    //  return initializeMessages(localeName).then((_) {
+    //    return AppLocalizations(localeName);
+    //  });
   }
 
   const AppLocalizations(this.localeName);
