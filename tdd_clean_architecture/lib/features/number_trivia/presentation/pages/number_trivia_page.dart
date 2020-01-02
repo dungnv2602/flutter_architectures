@@ -14,7 +14,7 @@ class NumberTriviaPage extends StatelessWidget {
         title: const Text('Number Trivia'),
       ),
       body: BlocProvider(
-        builder: (context) => locator<NumberTriviaBloc>(),
+        create: (context) => locator<NumberTriviaBloc>(),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8),
@@ -23,19 +23,13 @@ class NumberTriviaPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 BlocBuilder<NumberTriviaBloc, NumberTriviaState>(
                   builder: (context, state) {
-                    if (state is Empty) {
-                      return const MessageDisplay(message: 'Start searching');
-                    }
-                    if (state is Loading) {
-                      return const LoadingWidget();
-                    }
-                    if (state is Loaded) {
-                      return TriviaDisplay(trivia: state.trivia);
-                    }
-                    if (state is Error) {
-                      return MessageDisplay(message: state.msg);
-                    }
-                    return const SizedBox.shrink();
+                    return state.when(
+                      empty: (_) =>
+                          const MessageDisplay(message: 'Start searching'),
+                      loading: (_) => const LoadingWidget(),
+                      loaded: (state) => TriviaDisplay(trivia: state.trivia),
+                      error: (state) => MessageDisplay(message: state.msg),
+                    );
                   },
                 ),
                 const SizedBox(height: 20),

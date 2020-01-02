@@ -1,25 +1,15 @@
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:super_enum/super_enum.dart';
 
-@immutable
-abstract class WeatherEvent extends Equatable {
-  const WeatherEvent();
-}
+part 'weather_event.g.dart';
 
-class FetchWeather extends WeatherEvent {
-  const FetchWeather({@required this.city}) : assert(city != null);
-
-  final String city;
-
-  @override
-  List<Object> get props => [city];
-}
-
-class RefreshWeather extends WeatherEvent {
-  final String city;
-
-  const RefreshWeather({@required this.city}) : assert(city != null);
-
-  @override
-  List<Object> get props => [city];
+@superEnum
+enum _WeatherEvent {
+  @Data(fields: [
+    DataField('city', String),
+  ])
+  FetchWeather,
+  @Data(fields: [
+    DataField('city', String),
+  ])
+  RefreshWeather,
 }

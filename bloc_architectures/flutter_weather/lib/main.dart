@@ -22,10 +22,10 @@ void main() {
     MultiBlocProvider(
       providers: [
         BlocProvider<ThemeBloc>(
-          builder: (_) => ThemeBloc(),
+          create: (_) => ThemeBloc(),
         ),
         BlocProvider<SettingsBloc>(
-          builder: (context) => SettingsBloc(),
+          create: (context) => SettingsBloc(),
         ),
       ],
       child: MyApp(weatherRepository: weatherRepo),
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: state.theme,
           home: BlocProvider<WeatherBloc>(
-            builder: (_) => WeatherBloc(weatherRepository: weatherRepository),
+            create: (_) => WeatherBloc(weatherRepository: weatherRepository),
             child: MyHomePage(),
           ),
         );
@@ -116,14 +116,14 @@ class _MyHomePageState extends State<MyHomePage> {
               );
               if (city != null) {
                 BlocProvider.of<WeatherBloc>(context)
-                    .add(FetchWeather(city: city));
+                    .add(WeatherEvent.fetchWeather(city: city));
               }
             },
           )
         ],
       ),
       body: Center(
-        child: BlocListener<WeatherBloc, WeatherState>(
+        child: BlocConsumer<WeatherBloc, WeatherState>(
           listener: (context, state) {
             if (state is WeatherLoaded) {
               BlocProvider.of<ThemeBloc>(context)
@@ -133,22 +133,17 @@ class _MyHomePageState extends State<MyHomePage> {
               _refreshCompleter = Completer<void>();
             }
           },
-          child: BlocBuilder<WeatherBloc, WeatherState>(
-            builder: (context, state) {
-              if (state is WeatherEmpty) {
-                return Center(child: Text('Please Select a Location'));
-              }
-              if (state is WeatherLoading) {
-                return Center(child: CircularProgressIndicator());
-              }
-              if (state is WeatherError) {
-                return Text(
-                  state.msg,
-                  style: TextStyle(color: Colors.red),
-                );
-              }
-              if (state is WeatherLoaded) {
-                final weather = state.weather;
+          builder: (context, state) {
+            return state.when(
+              weatherEmpty: (_) =>
+                  Center(child: Text('Please Select a Location')),
+              weatherLoading: (_) => Center(child: CircularProgressIndicator()),
+              weatherError: (error) => Text(
+                error.msg,
+                style: TextStyle(color: Colors.red),
+              ),
+              weatherLoaded: (loaded) {
+                final weather = loaded.weather;
                 return BlocBuilder<ThemeBloc, ThemeState>(
                   builder: (context, themeState) {
                     return GradientContainer(
@@ -156,7 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: RefreshIndicator(
                         onRefresh: () async {
                           BlocProvider.of<WeatherBloc>(context).add(
-                            RefreshWeather(city: state.weather.location),
+                            WeatherEvent.refreshWeather(
+                                city: loaded.weather.location),
                           );
                           return _refreshCompleter.future;
                         },
@@ -185,10 +181,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   },
                 );
-              }
-              return SizedBox.shrink();
-            },
-          ),
+              },
+            );
+          },
         ),
       ),
     );

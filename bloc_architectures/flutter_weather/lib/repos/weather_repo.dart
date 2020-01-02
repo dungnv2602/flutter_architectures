@@ -1,6 +1,7 @@
 import 'package:flutter_weather/models/models.dart';
 import 'package:meta/meta.dart';
-
+import 'package:dartz/dartz.dart';
+import 'failure.dart';
 import 'weather_api_client.dart';
 
 class WeatherRepository {
@@ -9,8 +10,13 @@ class WeatherRepository {
 
   final WeatherApiClient weatherApiClient;
 
-  Future<Weather> getWeather(String city) async {
+  Future<Either<Exception, Weather>> getWeather(String city) async {
     final int locationId = await weatherApiClient.getLocationId(city);
-    return await weatherApiClient.fetchWeather(locationId);
+    try {
+      final weather = await weatherApiClient.fetchWeather(locationId);
+      return Right(weather);
+    } on Exception catch (e) {
+      return Left(e);
+    }
   }
 }

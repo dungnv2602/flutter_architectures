@@ -40,11 +40,11 @@ void main() {
       blocTest(
         'should emit [Empty, Error] when the number input is invalid',
         build: () => bloc,
-        act: (NumberTriviaBloc bloc) async =>
-            bloc.add(const GetConcreteNumber('error')),
+        act: (NumberTriviaBloc bloc) async => bloc
+            .add(NumberTriviaEvent.getConcreteNumber(numberString: 'error')),
         expect: [
           Empty(),
-          Error(INVALID_INPUT_FAILURE_MESSAGE),
+          Error(msg: INVALID_INPUT_FAILURE_MESSAGE),
         ],
       );
       blocTest(
@@ -54,12 +54,12 @@ void main() {
               .thenAnswer((_) async => Right(tNumberTrivia));
           return bloc;
         },
-        act: (NumberTriviaBloc bloc) async =>
-            bloc.add(GetConcreteNumber(tNumberString)),
+        act: (NumberTriviaBloc bloc) async => bloc.add(
+            NumberTriviaEvent.getConcreteNumber(numberString: tNumberString)),
         expect: [
           Empty(),
           Loading(),
-          Loaded(tNumberTrivia),
+          const Loaded(trivia: tNumberTrivia),
         ],
       );
       blocTest(
@@ -69,12 +69,12 @@ void main() {
               .thenAnswer((_) async => Left(ServerFailure()));
           return bloc;
         },
-        act: (NumberTriviaBloc bloc) async =>
-            bloc.add(GetConcreteNumber(tNumberString)),
+        act: (NumberTriviaBloc bloc) async => bloc.add(
+            NumberTriviaEvent.getConcreteNumber(numberString: tNumberString)),
         expect: [
           Empty(),
           Loading(),
-          Error(SERVER_FAILURE_MESSAGE),
+          Error(msg: SERVER_FAILURE_MESSAGE),
         ],
       );
       blocTest(
@@ -84,12 +84,12 @@ void main() {
               .thenAnswer((_) async => Left(CacheFailure()));
           return bloc;
         },
-        act: (NumberTriviaBloc bloc) async =>
-            bloc.add(GetConcreteNumber(tNumberString)),
+        act: (NumberTriviaBloc bloc) async => bloc.add(
+            NumberTriviaEvent.getConcreteNumber(numberString: tNumberString)),
         expect: [
           Empty(),
           Loading(),
-          Error(CACHE_FAILURE_MESSAGE),
+          Error(msg: CACHE_FAILURE_MESSAGE),
         ],
       );
     });
@@ -103,11 +103,12 @@ void main() {
               .thenAnswer((_) async => Right(tNumberTrivia));
           return bloc;
         },
-        act: (NumberTriviaBloc bloc) async => bloc.add(GetRandomNumber()),
+        act: (NumberTriviaBloc bloc) async =>
+            bloc.add(NumberTriviaEvent.getRandomNumber()),
         expect: [
           Empty(),
           Loading(),
-          Loaded(tNumberTrivia),
+          const Loaded(trivia: tNumberTrivia),
         ],
       );
       blocTest(
@@ -117,11 +118,12 @@ void main() {
               .thenAnswer((_) async => Left(ServerFailure()));
           return bloc;
         },
-        act: (NumberTriviaBloc bloc) async => bloc.add(GetRandomNumber()),
+        act: (NumberTriviaBloc bloc) async =>
+            bloc.add(NumberTriviaEvent.getRandomNumber()),
         expect: [
           Empty(),
           Loading(),
-          Error(SERVER_FAILURE_MESSAGE),
+          Error(msg: SERVER_FAILURE_MESSAGE),
         ],
       );
       blocTest(
@@ -131,11 +133,12 @@ void main() {
               .thenAnswer((_) async => Left(CacheFailure()));
           return bloc;
         },
-        act: (NumberTriviaBloc bloc) async => bloc.add(GetRandomNumber()),
+        act: (NumberTriviaBloc bloc) async =>
+            bloc.add(NumberTriviaEvent.getRandomNumber()),
         expect: [
           Empty(),
           Loading(),
-          Error(CACHE_FAILURE_MESSAGE),
+          Error(msg: CACHE_FAILURE_MESSAGE),
         ],
       );
     });

@@ -28,18 +28,16 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
         assert(inputConverter != null);
 
   @override
-  NumberTriviaState get initialState => Empty();
+  NumberTriviaState get initialState => NumberTriviaState.empty();
 
   @override
   Stream<NumberTriviaState> mapEventToState(
     NumberTriviaEvent event,
   ) async* {
-    if (event is GetConcreteNumber) {
-      yield* mapGetConcreteNumberEventToState(event);
-    }
-    if (event is GetRandomNumber) {
-      yield* mapGetRandomNumberEventToState();
-    }
+    yield* event.when(
+      getConcreteNumber: (event) => mapGetConcreteNumberEventToState(event),
+      getRandomNumber: (_) => mapGetRandomNumberEventToState(),
+    );
   }
 
   Stream<NumberTriviaState> mapGetConcreteNumberEventToState(
@@ -49,7 +47,7 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
 
     yield* inputEither.fold(
       (failure) async* {
-        yield const Error(INVALID_INPUT_FAILURE_MESSAGE);
+        yield NumberTriviaState.error(msg: INVALID_INPUT_FAILURE_MESSAGE);
       },
       (integer) async* {
         yield Loading();
@@ -70,8 +68,8 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
     Either<Failure, NumberTrivia> either,
   ) async* {
     yield either.fold(
-      (failure) => Error(_mapFailureToMessage(failure)),
-      (trivia) => Loaded(trivia),
+      (failure) => NumberTriviaState.error(msg: _mapFailureToMessage(failure)),
+      (trivia) => NumberTriviaState.loaded(trivia: trivia),
     );
   }
 

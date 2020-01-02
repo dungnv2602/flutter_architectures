@@ -1,33 +1,20 @@
-import 'package:equatable/equatable.dart';
+import 'package:super_enum/super_enum.dart';
 import 'package:flutter_weather/models/models.dart';
-import 'package:meta/meta.dart';
 
-@immutable
-abstract class WeatherState extends Equatable {
-  const WeatherState();
+part 'weather_state.g.dart';
 
-  @override
-  List<Object> get props => [];
-}
-
-class WeatherEmpty extends WeatherState {}
-
-class WeatherLoading extends WeatherState {}
-
-class WeatherError extends WeatherState {
-  const WeatherError({@required this.msg}) : assert(msg != null);
-
-  final String msg;
-
-  @override
-  List<Object> get props => [msg];
-}
-
-class WeatherLoaded extends WeatherState {
-  const WeatherLoaded({@required this.weather}) : assert(weather != null);
-
-  final Weather weather;
-
-  @override
-  List<Object> get props => [weather];
+@superEnum
+enum _WeatherState {
+  @object
+  WeatherEmpty,
+  @object
+  WeatherLoading,
+  @Data(fields: [
+    DataField('weather', Weather),
+  ])
+  WeatherLoaded,
+  @Data(fields: [
+    DataField('msg', String),
+  ])
+  WeatherError,
 }

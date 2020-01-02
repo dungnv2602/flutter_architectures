@@ -19,7 +19,7 @@ class _TriviaControlsState extends State<TriviaControls> {
         TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Input a number',
           ),
@@ -55,13 +55,13 @@ class _TriviaControlsState extends State<TriviaControls> {
   }
 
   void getConcreteTrivia() {
-    BlocProvider.of<NumberTriviaBloc>(context)
-        .add(GetConcreteNumber(controller.text));
+    BlocProvider.of<NumberTriviaBloc>(context).add(
+        NumberTriviaEvent.getConcreteNumber(numberString: controller.text));
     clearTextController();
   }
 
   void getRandomTrivia() {
-    BlocProvider.of<NumberTriviaBloc>(context).add(GetRandomNumber());
+    BlocProvider.of<NumberTriviaBloc>(context).add(NumberTriviaEvent.getRandomNumber());
     clearTextController();
   }
 
