@@ -40,7 +40,7 @@ class _BaseViewState<T extends ChangeNotifier> extends State<BaseView<T>> {
   Widget build(BuildContext context) {
     /// use default constructor ChangeNotifierProvider so that it can do dispose for us
     return ChangeNotifierProvider<T>(
-      builder: (context) => notifier,
+      create: (context) => notifier,
       child: Consumer<T>(
         builder: widget.consumerBuilder,
         child: widget.consumerChild,

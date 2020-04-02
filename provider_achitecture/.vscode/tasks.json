@@ -1,0 +1,19 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "adb logcat -c",
+            "group": "none",
+            "promptOnClose": true,
+            "presentation": {
+                "clear": true,
+                "reveal": "silent",
+                "panel": "dedicated",
+            }
+        }
+    ]
+}

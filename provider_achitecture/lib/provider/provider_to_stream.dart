@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProviderToStream<T> extends StatefulWidget implements SingleChildCloneableWidget {
+class ProviderToStream<T> extends StatefulWidget {
   final ValueWidgetBuilder<Stream<T>> builder;
   final Widget child;
 
@@ -11,15 +11,6 @@ class ProviderToStream<T> extends StatefulWidget implements SingleChildCloneable
 
   @override
   _ProviderToStreamState<T> createState() => _ProviderToStreamState<T>();
-
-  @override
-  SingleChildCloneableWidget cloneWithChild(Widget child) {
-    return ProviderToStream(
-      key: key,
-      builder: builder,
-      child: child,
-    );
-  }
 }
 
 class _ProviderToStreamState<T> extends State<ProviderToStream<T>> {
