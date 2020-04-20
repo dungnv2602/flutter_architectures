@@ -5,10 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter Debug Mode",
+            "name": "Flutter Test Provider",
             "type": "dart",
             "request": "launch",
             "program": "lib/test_tabs/main.dart",
+            "flutterMode": "debug",
+            // "preLaunchTask": "Clean",
+        },
+        {
+            "name": "Flutter Debug Mode",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
             "flutterMode": "debug",
             "preLaunchTask": "Clean",
         },

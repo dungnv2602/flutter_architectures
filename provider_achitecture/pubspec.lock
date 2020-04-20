@@ -69,13 +69,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_page_transition:
-    dependency: "direct main"
-    description:
-      name: flutter_page_transition
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -157,7 +150,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.4"
+    version: "4.0.5"
   quiver:
     dependency: transitive
     description:

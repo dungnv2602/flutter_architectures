@@ -7,13 +7,31 @@
             "label": "Clean",
             "type": "shell",
             "command": "adb logcat -c",
-            "group": "none",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "promptOnClose": true,
             "presentation": {
                 "clear": true,
                 "reveal": "silent",
-                "panel": "dedicated",
+                "panel": "dedicated"
             }
-        }
+        },
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "flutter pub run build_runner watch --delete-conflicting-outputs",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "promptOnClose": true,
+            "presentation": {
+                "clear": true,
+                "reveal": "silent",
+                "panel": "dedicated"
+            }
+        },
     ]
 }

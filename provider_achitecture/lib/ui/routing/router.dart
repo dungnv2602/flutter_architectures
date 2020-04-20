@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_page_transition/flutter_page_transition.dart';
 import 'package:provider_arc/core/models/post.dart';
-import 'package:provider_arc/ui/managers/dialog_manager.dart';
-import 'package:provider_arc/ui/views/mock_posts_view.dart';
 import 'package:provider_arc/ui/views/home_view.dart';
 import 'package:provider_arc/ui/views/login_view.dart';
+import 'package:provider_arc/ui/views/mock_posts_view.dart';
 import 'package:provider_arc/ui/views/post_view.dart';
 
 class RoutePaths {
@@ -40,15 +38,6 @@ class Router {
               ),
             );
         }
-      },
-      transitionDuration: const Duration(milliseconds: 300),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return effectMap[PageTransitionType.slideParallaxLeft](
-          Curves.easeInOut,
-          animation,
-          secondaryAnimation,
-          DialogManager(child: child),
-        );
       },
     );
   }
