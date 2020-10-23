@@ -1,6 +1,6 @@
 # flutter_architectures
 
-A group of projects where I'm trying different approaches of state management and organizing architectures in Flutter.
+A group of projects where I'm trying different approaches of state management and organizing architecture in Flutter.
 
 ## Getting Started
 

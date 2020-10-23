@@ -15,12 +15,12 @@ class BlocView<T> extends StatefulWidget {
 
   final Bloc<T> bloc;
 
-  @override
-  _BlocViewState<T> createState() => _BlocViewState<T>();
-
   final BlocFuncion<T> onBlocReady;
 
   final Widget Function(BuildContext context, T result) loadedBuilder;
+
+  @override
+  _BlocViewState createState() => _BlocViewState();
 }
 
 class _BlocViewState<T> extends State<BlocView<T>> {
@@ -28,8 +28,15 @@ class _BlocViewState<T> extends State<BlocView<T>> {
   void initState() {
     super.initState();
     if (widget.onBlocReady != null) {
+      
       widget.bloc.invokeFunction(widget.onBlocReady);
     }
+  }
+
+  @override
+  void dispose() {
+    print('BlocView disposed');
+    super.dispose();
   }
 
   @override

@@ -5,6 +5,14 @@ typedef BlocFuncion<T> = Future<T> Function();
 class Bloc<T> extends ChangeNotifier {
   T _result;
   BlocState _state = BlocState.idle;
+  bool _mounted = true;
+  bool get mounted => _mounted;
+
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
+  }
 
   Future<void> invokeFunction(BlocFuncion<T> func) async {
     if (!loading) {

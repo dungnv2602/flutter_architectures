@@ -24,11 +24,24 @@ class HomePage extends StatelessWidget {
               ),
             ];
           },
+          // body: TabBarView(
+          //   children: genres
+          //       .map((genre) => BlocView<List<Movie>>(
+          //             bloc: Bloc<List<Movie>>(),
+          //             // onBlocReady: mockMovie,
+          //             loadedBuilder: (_, genres) {
+          //               return GenreView(
+          //                 genre: genre,
+          //               );
+          //             },
+          //           ))
+          //       .toList(growable: false),
+          // ),
           body: TabBarView(
             children: genres
                 .map((genre) => BlocView<List<Movie>>(
                       bloc: Bloc<List<Movie>>(),
-                      onBlocReady: mockMovie,
+                      // onBlocReady: mockMovie,
                       loadedBuilder: (_, genres) {
                         return GenreView(
                           genre: genre,
